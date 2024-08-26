@@ -11,10 +11,10 @@ timmy_the_turtle.speed(10000000000000000000000000000000000000000000000000)
 timmy_the_turtle.goto(-50,-150)
 loop = 100
 # while loop > 0:
-#     timmy_the_turtle.color("red")
-#     timmy_the_turtle.forward(10)
-#     timmy_the_turtle.color("white")
-#     timmy_the_turtle.forward(10)
+#     t.color("red")
+#     t.forward(10)
+#     t.color("white")
+#     t.forward(10)
 #     loop -= 1
 
 # Define a function to generate a random color

@@ -1,44 +1,50 @@
-import turtle
-import random
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
-# Set up the screen
-screen = turtle.Screen()
-screen.bgcolor("white")
 
-# Set up the turtle
-t = turtle.Turtle()
-t.pensize(1)
-t.speed(0)  # Fastest speed
+def draw_dog(ax, x, y, size):
+    # Draw the body
+    body = patches.Ellipse((x, y), width=size * 2, height=size, edgecolor='black', facecolor='brown')
+    ax.add_patch(body)
 
-# Function to draw a square
-def draw_square():
-    for _ in range(4):
-        t.forward(20)  # Adjust size as needed
-        t.right(90)
+    # Draw the head
+    head = patches.Circle((x + size, y + size * 0.75), radius=size * 0.5, edgecolor='black', facecolor='brown')
+    ax.add_patch(head)
 
-# Function to draw a heart
-def draw_heart():
-    t.begin_fill()
-    t.left(50)
-    t.forward(10)  # Adjust size to fit more hearts on screen
-    t.circle(5, 200)  # Adjust size to fit more hearts on screen
-    t.right(140)
-    t.circle(5, 200)  # Adjust size to fit more hearts on screen
-    t.forward(10)  # Adjust size to fit more hearts on screen
-    t.end_fill()
+    # Draw the ears
+    ear1 = patches.Ellipse((x + size * 1.3, y + size * 1.2), width=size * 0.3, height=size * 0.6, angle=45,
+                           edgecolor='black', facecolor='brown')
+    ear2 = patches.Ellipse((x + size * 0.7, y + size * 1.2), width=size * 0.3, height=size * 0.6, angle=-45,
+                           edgecolor='black', facecolor='brown')
+    ax.add_patch(ear1)
+    ax.add_patch(ear2)
 
-# Draw 500 squares and 500 hearts at random positions
-for _ in range(500):
-    t.color("blue")
-    t.penup()
-    x = random.randint(-300, 300)
-    y = random.randint(-300, 300)
-    t.goto(x, y)
-    t.pendown()
-    draw_square()
+    # Draw the legs
+    leg1 = patches.Rectangle((x - size * 0.5, y - size * 0.75), width=size * 0.2, height=size * 0.75, edgecolor='black',
+                             facecolor='brown')
+    leg2 = patches.Rectangle((x + size * 0.3, y - size * 0.75), width=size * 0.2, height=size * 0.75, edgecolor='black',
+                             facecolor='brown')
+    ax.add_patch(leg1)
+    ax.add_patch(leg2)
 
-for _ in range(500):
-    t.color("red")
-    t.penup()
-    x = random.randint(-300, 300)
-    y = random.randint(-300, 300)
+    # Draw the tail
+    tail = patches.FancyArrow(x - size, y, dx=-size * 0.5, dy=size * 0.5, width=size * 0.1, length_includes_head=True,
+                              head_length=size * 0.5, head_width=size * 0.2, color='brown')
+    ax.add_patch(tail)
+
+
+# Create the figure and axis
+fig, ax = plt.subplots(figsize=(10, 10))
+ax.set_xlim(-50, 50)
+ax.set_ylim(-50, 50)
+ax.set_aspect('equal')
+
+# Draw multiple dogs in a grid
+grid_size = 5
+for i in range(grid_size):
+    for j in range(grid_size):
+        draw_dog(ax, x=i * 15 - 30, y=j * 15 - 30, size=5)
+
+# Show the plot
+ax.set_axis_off()
+plt.show()
